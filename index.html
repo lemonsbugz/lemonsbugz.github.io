@@ -3,92 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World Pages</title>
+    <title>Hello World</title>
+    <!-- นำเข้าฟอนต์ลายเส้นสวยๆ หรูๆ จาก Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             padding: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #ffe6f2; /* พื้นหลังสีชมพูพาสเทลอ่อนๆ */
-            background-image: radial-gradient(#fff 20%, transparent 20%),
-                              radial-gradient(#fff 20%, transparent 20%);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px; /* ลายจุด Polka Dot เพิ่มความน่ารัก */
-            overflow: hidden; /* ซ่อน scrollbar ไม่ให้จอขยับตามตัวอักษร */
+            /* พื้นหลังไล่เฉดสีพาสเทลให้ดูละมุนสายตา */
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
-        /* สไตล์ Word Art */
-        .word-art {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #ff4d94; /* สีชมพูเข้ม */
+        /* สไตล์ Word Art แบบเรียบหรูดูดี */
+        .beautiful-wordart {
+            font-family: 'Poppins', sans-serif;
+            font-size: 6rem;
+            font-weight: 700;
+            font-style: italic; /* เอียงนิดๆ ให้ดูมีลูกเล่น */
             
-            /* สร้างมิติแบบ Word Art ด้วยการซ้อนเงาหลายๆ ชั้น */
-            text-shadow: 
-                3px 3px 0px #fff, 
-                6px 6px 0px #ffb3d9, 
-                9px 9px 20px rgba(0, 0, 0, 0.15);
+            /* ใช้เทคนิคไล่เฉดสีเข้าไปในตัวอักษร (Gradient Text) */
+            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             
-            position: absolute;
-            user-select: none;
-            white-space: nowrap;
-
-            /* สั่งให้เล่นแอนิเมชันพร้อมกันทั้งเด้งและหมุน */
-            animation: bounce Around 8s linear infinite, rotateArt 4s ease-in-out infinite alternate;
+            /* ใส่เงาด้านหลังแบบ Soft Shadow ให้ตัวอักษรดูลอยเด่นขึ้นมา */
+            filter: drop-shadow(4px 6px 10px rgba(255, 117, 140, 0.3));
+            
+            /* ใส่แอนิเมชันขยับขึ้นลงนุ่มๆ เหมือนลอยอยู่ในน้ำ (Floating Effect) */
+            animation: floatAnimation 3s ease-in-out infinite alternate;
         }
 
-        /* แอนิเมชันสำหรับเด้งไปทั่วหน้าจอ (Bounce) */
-        @keyframes bounceAround {
+        /* เอฟเฟกต์ลอยละล่องแบบนุ่มนวล */
+        @keyframes floatAnimation {
             0% {
-                top: 10%;
-                left: 10%;
-            }
-            25% {
-                top: 80%;
-                left: 40%;
-            }
-            50% {
-                top: 20%;
-                left: 70%;
-            }
-            75% {
-                top: 70%;
-                left: 20%;
+                transform: translateY(0px);
             }
             100% {
-                top: 10%;
-                left: 10%;
+                transform: translateY(-15px); /* ลอยขึ้นบนเล็กน้อย */
             }
         }
 
-        /* แอนิเมชันเสริมความดุ๊กดิ๊ก บิดไปบิดมาเล็กน้อย */
-        @keyframes rotateArt {
-            0% {
-                transform: scale(1) rotate(-5deg);
-            }
-            100% {
-                transform: scale(1.1) rotate(5deg); /* ขยายใหญ่ขึ้นนิดหน่อยตอนสลับฝั่ง */
+        /* รองรับการแสดงผลบนหน้าจอมือถือให้ขนาดเล็กลงอัตโนมัติ */
+        @media (max-width: 768px) {
+            .beautiful-wordart {
+                font-size: 3.5rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="word-art">HELLO WORLD</div>
+    <!-- ข้อความ Word Art สวยๆ -->
+    <div class="beautiful-wordart">Hello World</div>
 
 </body>
 </html>
