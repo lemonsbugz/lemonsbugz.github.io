@@ -1,253 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Demo Portal</title>
-    <!-- Google Fonts -->
+    <title>ระบบทดสอบความปลอดภัย - Lemonsbugz</title>
+    <!-- Google Fonts & FontAwesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #58a6ff;
-            --primary-hover: #1f6feb;
-            --bg-color: #0d1117;
-            --card-bg: rgba(22, 27, 34, 0.7);
-            --border-color: rgba(48, 54, 61, 0.8);
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 25, 40, 0.75);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-color: #f3f4f6;
+            --accent-color: #ff5e62;
+            --accent-glow: rgba(255, 94, 98, 0.4);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Sarabun', sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-main);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(255, 94, 98, 0.1) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(0, 242, 254, 0.08) 0px, transparent 50%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            color: var(--text-color);
             overflow: hidden;
-            position: relative;
         }
 
-        /* Ambient Glowing Background Blobs */
-        .glow-blob-1 {
+        /* แกนนำหลังฉาก */
+        .glass-bg {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, transparent 70%);
-            top: -10%;
-            left: -10%;
-            z-index: 0;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            filter: blur(80px);
+            opacity: 0.15;
+            top: 20%;
+            left: 25%;
+            z-index: 1;
         }
 
-        .glow-blob-2 {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(31, 111, 235, 0.15) 0%, transparent 70%);
-            bottom: -15%;
-            right: -10%;
-            z-index: 0;
-        }
-
-        /* Login Card Container */
         .login-container {
+            position: relative;
+            z-index: 10;
             width: 100%;
             max-width: 440px;
-            padding: 24px;
-            z-index: 10;
         }
 
         .login-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
-        /* Logo / Header */
-        .brand {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .brand-logo {
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
-        }
-
-        .brand-title {
-            font-size: 22px;
+        .logo-area {
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #ffffff, #8b949e);
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
-        .header-desc {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 30px;
-            line-height: 1.5;
+        .tagline {
+            font-size: 0.95rem;
+            color: #9ca3af;
+            margin-bottom: 35px;
+            font-weight: 300;
         }
 
-        /* Form Controls */
         .form-group {
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 22px;
+            text-align: left;
         }
 
-        .form-label {
+        .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
             margin-bottom: 8px;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .input-wrapper {
             position: relative;
         }
 
-        .input-icon {
+        .input-wrapper i {
             position: absolute;
-            left: 16px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 16px;
+            color: #6b7280;
+            transition: color 0.3s;
         }
 
-        .form-input {
+        .form-control {
             width: 100%;
-            background: rgba(13, 17, 23, 0.8);
+            padding: 14px 15px 14px 45px;
+            background: rgba(17, 24, 39, 0.6);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px 16px 14px 44px;
-            color: var(--text-main);
-            font-size: 15px;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
-        }
-
-        /* Passwords Eye Toggle */
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 16px;
-            transition: color 0.2s;
-        }
-
-        .password-toggle:hover {
-            color: var(--text-main);
-        }
-
-        .extra-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .remember-me input {
-            accent-color: var(--primary);
-            cursor: pointer;
-        }
-
-        .forgot-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Login Button */
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 12px;
             color: white;
-            border: none;
-            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .form-control:focus + i {
+            color: var(--accent-color);
+        }
+
+        .login-btn {
+            width: 100%;
             padding: 14px;
-            font-size: 16px;
+            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 15px rgba(31, 111, 235, 0.35);
-            transition: all 0.2s ease;
-            position: relative;
         }
 
-        .btn-submit:hover {
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
             opacity: 0.95;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(31, 111, 235, 0.45);
         }
 
-        .btn-submit:active {
-            transform: translateY(1px);
+        .login-btn:active {
+            transform: translateY(0);
         }
 
-        .btn-submit:disabled {
-            background: var(--border-color);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
+        /* ส่วนจัดแสดง Modal ผลลัพธ์ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Loading Spinner */
+        .modal-card {
+            background: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 94, 98, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--accent-color);
+            font-size: 2rem;
+            border: 1px solid rgba(255, 94, 98, 0.3);
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .modal-desc {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            background: #1f2937;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn:hover {
+            background: #374151;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ส่วนของอนิเมชันตอนกด Login */
         .spinner {
             display: none;
             width: 20px;
@@ -262,240 +265,98 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Modal Overlay for Demo Announcement */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(13, 17, 23, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-card {
-            background: #161b22;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 400px;
-            padding: 32px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .modal-overlay.active .modal-card {
-            transform: scale(1);
-        }
-
-        .modal-icon {
-            font-size: 54px;
-            color: #2ea043;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .modal-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .btn-close-modal {
-            background: rgba(48, 54, 61, 0.5);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-close-modal:hover {
-            background: #21262d;
-            border-color: #8b949e;
-        }
-
-        /* Footer Copyright */
-        .footer {
-            margin-top: 24px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
+        .footer-credit {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: #4b5563;
         }
     </style>
 </head>
 <body>
 
-    <div class="glow-blob-1"></div>
-    <div class="glow-blob-2"></div>
+    <div class="glass-bg"></div>
 
     <div class="login-container">
         <div class="login-card">
-            <!-- Brand Logo -->
-            <div class="brand">
-                <div class="brand-logo">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <span class="brand-title">LemonsPortal</span>
-            </div>
+            <div class="logo-area">LEMONSBUGZ</div>
+            <div class="tagline">ระบบทดสอบล็อกอินส่วนบุคคล</div>
 
-            <p class="header-desc">
-                This is a secure static login interface mockup for UX validation & environment testing.
-            </p>
-
-            <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)">
-                <!-- Username Input -->
                 <div class="form-group">
-                    <label class="form-label" for="username">Username or Email</label>
+                    <label for="username">บัญชีผู้ใช้ (Username)</label>
                     <div class="input-wrapper">
-                        <i class="fa-regular fa-user input-icon"></i>
-                        <input class="form-input" type="text" id="username" placeholder="e.g. lemonsbugz" required autocomplete="off">
+                        <input type="text" id="username" class="form-control" placeholder="ใส่ชื่อบัญชีอะไรก็ได้เพื่อทดสอบ" required autocomplete="off">
+                        <i class="fa-solid fa-user"></i>
                     </div>
                 </div>
 
-                <!-- Password Input -->
                 <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
+                    <label for="password">รหัสผ่าน (Password)</label>
                     <div class="input-wrapper">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input class="form-input" type="password" id="password" placeholder="••••••••" required>
-                        <i class="fa-regular fa-eye password-toggle" id="passwordEye" onclick="togglePassword()"></i>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="off">
+                        <i class="fa-solid fa-key"></i>
                     </div>
                 </div>
 
-                <!-- Extras (Remember Me & Forgot) -->
-                <div class="extra-actions">
-                    <label class="remember-me">
-                        <input type="checkbox"> Remember me
-                    </label>
-                    <a href="#" class="forgot-link" onclick="triggerInfoAlert(event)">Forgot password?</a>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    <span id="btnText">Sign In</span>
-                    <span class="spinner" id="btnSpinner"></span>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span id="btnText">เข้าสู่ระบบ</span>
+                    <div class="spinner" id="btnSpinner"></div>
                 </button>
             </form>
-        </div>
 
-        <div class="footer">
-            &copy; 2026 Lemonsbugz Dev. GitHub Pages Demo.
+            <div class="footer-credit">
+                &copy; 2026 lemonsbugz.github.io - All Rights Reserved.
+            </div>
         </div>
     </div>
 
-    <!-- Fancy Custom Popups (Modals) for Demo Interaction -->
-    <div class="modal-overlay" id="demoModal">
+    <!-- กล่องป๊อปอัปผลลัพธ์การทดสอบ -->
+    <div class="modal-overlay" id="resultModal">
         <div class="modal-card">
             <div class="modal-icon">
-                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="modal-title" id="mTitle">Auth Request Intercepted!</h3>
-            <p class="modal-desc" id="mDesc">
-                Authentication Successful (Demo Mode). Because this site is static, your input was validated client-side only and has not been transmitted over the web.
-            </p>
-            <button class="btn-close-modal" onclick="closeModal()">Close Demo</button>
+            <div class="modal-title">ยินดีด้วย! ระบบตอบสนองปกติ</div>
+            <div class="modal-desc" id="modalText">
+                คุณกรอก Username และ Password เรียบร้อย แต่ตามที่คุณตั้งโจทย์ไว้ "Login ไม่ได้หรอกนะ มีไว้สำหรับทดสอบอินเตอร์เฟสเฉยๆ" ระบบนี้จึงทำหน้าที่บันทึกการคลิกจำลองเท่านั้น!
+            </div>
+            <button class="modal-btn" onclick="closeModal()">รับทราบ</button>
         </div>
     </div>
 
     <script>
-        // Toggle password show/hide feature
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const eyeIcon = document.getElementById('passwordEye');
-            
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordField.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            }
-        }
-
-        // Simulate login verification with loading animations
         function handleLogin(event) {
+            // ป้องกันไม่ให้หน้าเว็บรีเฟรชตัวเอง
             event.preventDefault();
             
-            const submitBtn = document.getElementById('submitBtn');
+            const usernameVal = document.getElementById('username').value;
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
-            const usernameVal = document.getElementById('username').value;
+            const loginBtn = document.getElementById('loginBtn');
 
-            // Trigger Loading State
-            submitBtn.disabled = true;
+            // เริ่มแสดงสถานะ Loading (หมุนๆ)
             btnText.style.display = 'none';
             btnSpinner.style.display = 'block';
+            loginBtn.disabled = true;
 
-            // Simulate server authentication delay (1.5 seconds)
+            // จำลองเวลาเช็กฐานข้อมูลปลอมๆ 1.2 วินาที
             setTimeout(() => {
-                // Reset loading state
-                submitBtn.disabled = false;
-                btnText.style.display = 'inline';
+                // เปลี่ยนข้อความเพื่อต้อนรับคุณ
+                document.getElementById('modalText').innerHTML = `ระบบได้รับข้อมูลบัญชี <strong>"${usernameVal}"</strong> แล้ว!<br><br>แต่ตามที่คุณตั้งโจทย์ไว้ <i>"ล็อกอินไม่ได้หรอกนะ มีไว้เพื่อทดสอบเฉยๆ"</i> นี่จึงเป็นแค่การทดสอบ UI แบบจำลองพฤติกรรมความเร็วสูงครับ`;
+                
+                // แสดงผลป๊อปอัปหรูๆ
+                document.getElementById('resultModal').classList.add('active');
+
+                // คืนค่าปุ่มให้เป็นปกติ
+                btnText.style.display = 'block';
                 btnSpinner.style.display = 'none';
-
-                // Display custom success modal
-                showModal(
-                    "Success! (Demo Mode)",
-                    `Welcome, <strong>${usernameVal}</strong>! Your credentials have been processed inside this safe static simulator sandbox. Real integration would connect to a database API here.`,
-                    "fa-circle-check",
-                    "#2ea043"
-                );
-            }, 1500);
-        }
-
-        // Trigger helper for secondary links (Forgot/Signup)
-        function triggerInfoAlert(e) {
-            e.preventDefault();
-            showModal(
-                "Static Link Simulated",
-                "This auxiliary interface element is unlinked as this is a non-production CSS/HTML mockup designed strictly for aesthetic tests.",
-                "fa-circle-info",
-                "#58a6ff"
-            );
-        }
-
-        // Modal triggers
-        const modalOverlay = document.getElementById('demoModal');
-        const modalIcon = document.querySelector('.modal-icon i');
-
-        function showModal(title, text, iconClass, iconColor) {
-            document.getElementById('mTitle').innerHTML = title;
-            document.getElementById('mDesc').innerHTML = text;
-            modalIcon.className = `fa-solid ${iconClass}`;
-            modalIcon.style.color = iconColor;
-            modalOverlay.classList.add('active');
+                loginBtn.disabled = false;
+            }, 1200);
         }
 
         function closeModal() {
-            modalOverlay.classList.remove('active');
-            // Clear inputs for ease of next tests
+            document.getElementById('resultModal').classList.remove('active');
+            // เคลียร์ค่าฟอร์มกลับเป็นค่าว่าง
             document.getElementById('loginForm').reset();
         }
     </script>
