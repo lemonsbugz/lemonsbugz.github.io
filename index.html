@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORTNITE STYLE LOGIN (FANMADE)</title>
+    <title>SCHOOL SYSTEM - LOGIN</title>
     <style>
-        /* นำเข้าฟอนต์สไตล์เกมมิ่ง */
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+Thai:wght@400;700&display=swap');
+        /* นำเข้าฟอนต์ใหม่: 'Cinzel' สำหรับหัวข้อที่หรูหรา และ 'Montserrat'/'Noto Sans Thai' สำหรับความโมเดิร์น */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap');
 
         * {
             margin: 0;
@@ -15,8 +15,8 @@
         }
 
         body {
-            font-family: 'Noto Sans Thai', sans-serif;
-            background: radial-gradient(circle, #232742 0%, #111322 100%);
+            font-family: 'Noto Sans Thai', 'Montserrat', sans-serif;
+            background: radial-gradient(circle, #1a1c2e 0%, #0d0e17 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,14 +25,14 @@
             position: relative;
         }
 
-        /* ตกแต่งพื้นหลังให้ดูมีมิติแบบไซไฟ */
+        /* ตกแต่งพื้นหลังให้ดูมีมิติ สบายตาขึ้น */
         body::before {
             content: '';
             position: absolute;
             width: 150%;
             height: 150%;
-            background: linear-gradient(45deg, rgba(0,0,0,0) 40%, rgba(243, 240, 47, 0.05) 50%, rgba(0,0,0,0) 60%);
-            animation: shine 8s infinite linear;
+            background: linear-gradient(45deg, rgba(0,0,0,0) 40%, rgba(229, 193, 88, 0.03) 50%, rgba(0,0,0,0) 60%);
+            animation: shine 12s infinite linear;
         }
 
         @keyframes shine {
@@ -43,47 +43,58 @@
         /* กล่อง Login */
         .login-container {
             position: relative;
-            background: rgba(20, 22, 37, 0.85);
-            padding: 40px;
-            border-radius: 4px;
+            background: rgba(18, 20, 32, 0.9);
+            padding: 45px 40px;
+            border-radius: 6px;
             width: 100%;
             max-width: 450px;
-            border: 3px solid #1c1f35;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(229, 193, 88, 0.15);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(229, 193, 88, 0.02);
             text-align: center;
             z-index: 10;
-            /* ตัดมุมเฉียงสไตล์ Fortnite */
-            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
+            clip-path: polygon(0 0, 94% 0, 100% 6%, 100% 100%, 6% 100%, 0 94%);
         }
 
-        /* เส้นขอบนีออนด้านบน */
+        /* เส้นขอบหรูหราด้านบน */
         .login-container::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #f3f02f, #ff007f);
+            height: 4px;
+            background: linear-gradient(90deg, #cda250, #e5c158, #cda250);
         }
 
-        /* โลโก้จำลอง */
+        /* หัวข้อหลัก SCHOOL SYSTEM (ปรับปรุงใหม่ตามบรีฟ) */
+        .logo-wrapper {
+            margin-bottom: 8px;
+        }
+
         .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3.5rem;
-            color: #fff;
-            letter-spacing: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            line-height: 1.2;
             text-transform: uppercase;
-            text-shadow: 3px 3px 0px #f3f02f;
-            margin-bottom: 5px;
-            transform: italic;
+            color: #ffffff;
+            /* ใช้การไล่เฉดสีอ่อนๆ และซ้อนเงาแบบนุ่มนวลให้อ่านง่ายแต่เท่ */
+            text-shadow: 0 0 15px rgba(225, 225, 225, 0.1), 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ปรับเฉพาะคำว่า SYSTEM ให้เป็นสีทองพรีเมียม เพื่อแยกคำให้สบายสายตามากขึ้น */
+        .logo span {
+            color: #e5c158;
+            text-shadow: 0 0 20px rgba(229, 193, 88, 0.25), 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         .subtitle {
             font-size: 0.85rem;
-            color: #7a829d;
+            font-weight: 500;
+            color: #727996;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             margin-bottom: 35px;
         }
 
@@ -96,86 +107,108 @@
 
         .input-group label {
             display: block;
-            color: #a1a8c3;
-            font-size: 0.8rem;
+            color: #8c94b5;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 15px 20px;
-            background: #121424;
-            border: 2px solid #2d325a;
+            padding: 15px 18px;
+            background: #0f101a;
+            border: 1px solid #25283d;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             border-radius: 4px;
             outline: none;
             transition: all 0.3s ease;
+            font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
         }
 
-        /* เอฟเฟกต์ตอนคลิกช่องกรอก */
+        /* เอฟเฟกต์ตอนคลิกช่องกรอก (เปลี่ยนจากเหลืองแป๋นเป็นสีทองนุ่มๆ) */
         .input-group input:focus {
-            border-color: #f3f02f;
-            box-shadow: 0 0 10px rgba(243, 240, 47, 0.2);
-            background: #17192e;
+            border-color: #e5c158;
+            box-shadow: 0 0 12px rgba(229, 193, 88, 0.15);
+            background: #131524;
         }
 
-        /* ปุ่มกดสุดเท่ */
+        /* ปุ่มกดดีไซน์เรียบหรูสไตล์อินเตอร์เฟสเกม */
         .btn-login {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
+            font-weight: 700;
             width: 100%;
-            padding: 15px;
-            background: #f3f02f;
-            color: #000;
+            padding: 16px;
+            background: linear-gradient(135deg, #e5c158 0%, #cda250 100%);
+            color: #0b0c13;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             margin-top: 10px;
-            clip-path: polygon(0 0, 92% 0, 100% 30%, 100% 100%, 8% 100%, 0 70%);
+            clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
+            box-shadow: 0 4px 15px rgba(205, 162, 80, 0.2);
         }
 
         .btn-login:hover {
-            background: #fff;
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            background: #ffffff;
+            color: #0b0c13;
+            transform: scale(1.015);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
         }
 
         .btn-login:active {
-            transform: scale(0.98);
+            transform: scale(0.985);
         }
 
         /* ข้อความแจ้งเตือนหลอกๆ */
         .fake-notice {
-            margin-top: 25px;
+            margin-top: 30px;
             font-size: 0.8rem;
-            color: #535975;
+            color: #4f546e;
+            line-height: 1.6;
         }
 
         .fake-notice a {
-            color: #f3f02f;
+            color: #e5c158;
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         .fake-notice a:hover {
+            color: #fff;
             text-decoration: underline;
+        }
+
+        .welcome-badge {
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 12px;
+            background: rgba(229, 193, 88, 0.06);
+            color: #e5c158;
+            border-radius: 20px;
+            border: 1px solid rgba(229, 193, 88, 0.12);
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <div class="logo">SCHOOL SYSTEM</div>
-        <div class="subtitle">เข้าสู่ระบบ</div>
+        <div class="logo-wrapper">
+            <div class="logo">School <span>System</span></div>
+        </div>
+        <div class="subtitle">เข้าสู่ระบบจัดการเรียนการสอน</div>
 
         <form onsubmit="handleFakeLogin(event)">
             <div class="input-group">
-                <label for="username">ชื่อผู้ใช้</label>
-                <input type="text" id="username" placeholder="USERNAME" required>
+                <label for="username">ชื่อผู้ใช้ / รหัสประจำตัว</label>
+                <input type="text" id="username" placeholder="Enter your username" autocomplete="off" required>
             </div>
 
             <div class="input-group">
@@ -183,24 +216,23 @@
                 <input type="password" id="password" placeholder="••••••••" required>
             </div>
 
-            <button type="submit" class="btn-login">LOGIN</button>
+            <button type="submit" class="btn-login">LOGIN SYSTEM</button>
         </form>
 
         <div class="fake-notice">
-            ยังไม่มีบัญชีใช่ไหม? <a href="#">ติดต่อผู้ดูแลระบบ</a><br>
-            <span style="font-size: 0.7rem; display:block; margin-top:10px;">ยินดีต้อนรับคุณครู</span>
+            หากยังไม่มีบัญชีเข้าใช้งาน? <a href="#">ติดต่อผู้ดูแลระบบ</a><br>
+            <div class="welcome-badge">ยินดีต้อนรับคณะครูและบุคลากร</div>
         </div>
     </div>
 
     <script>
-        // ฟังก์ชันดักจับตอนกดปุ่ม Login (ไม่ให้มันรีเฟรชหน้าจริง)
         function handleFakeLogin(event) {
-            event.preventDefault(); // ป้องกันการเปลี่ยนหน้า
+            event.preventDefault(); 
             
             const username = document.getElementById('username').value;
             
-            // แสดง Alert เท่ๆ ตอบรับ
-            alert(`ยินดีต้อนรับคุณ ${username}! \n\nระบบจำลองทำงานสำเร็จ (แต่นี่เป็นหน้าเว็บปลอมนะ นายผ่านด่านการสร้างเว็บแรกแล้ว!)`);
+            // แสดง Alert ตอบรับที่ดูเข้ากับระบบมากขึ้น
+            alert(`[ระบบจำลอง] ยินดีต้อนรับคุณ ${username} เข้าสู่ระบบ!\n\nการทดสอบหน้าเว็บแรกของคุณสำเร็จแล้ว ยินดีด้วยครับ!`);
         }
     </script>
 
