@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style>
+        /* สไตล์พื้นฐาน - กำหนดให้แสดงผลกลางจอพอดี */
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f7f9fc; /* พื้นหลังสีสว่างสบายตา */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* กล่องข้อความสไตล์ Word Art น่ารักนุ่มนวล */
+        .cute-wordart {
+            font-size: 5.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            
+            /* ใช้เฉดสีหวานๆ สไตล์พาสเทล */
+            color: #ff6b8b; 
+            
+            /* สร้างมิติหนาๆ สไตล์ Word Art ยุคคลาสสิกด้วยเงา (ไม่ต้องโหลดฟอนต์นอก) */
+            text-shadow: 
+                2px 2px 0px #ffffff,
+                4px 4px 0px #ffb6c1,
+                6px 6px 0px #ffe4e1,
+                8px 8px 15px rgba(0, 0, 0, 0.1);
+
+            /* ใส่เอฟเฟกต์ลอย ดุ๊กดิ๊กเบาๆ เพิ่มความน่ารัก */
+            animation: gentleFloat 4s ease-in-out infinite alternate;
+        }
+
+        /* แอนิเมชันลอยขึ้นลงแบบนุ่มนวล ไม่เด้งจนพัง */
+        @keyframes gentleFloat {
+            0% {
+                transform: translateY(0px) rotate(-1deg);
+            }
+            100% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+        }
+
+        /* ปรับขนาดอัติโนมัติเมื่อดูในมือถือ */
+        @media (max-width: 768px) {
+            .cute-wordart {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cute-wordart">HELLO WORLD</div>
+
+</body>
+</html>
