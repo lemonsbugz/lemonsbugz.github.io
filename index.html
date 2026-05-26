@@ -4,66 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
-    <!-- นำเข้าฟอนต์ลายเส้นสวยๆ หรูๆ จาก Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-
     <style>
+        /* สไตล์พื้นฐาน - กำหนดให้แสดงผลกลางจอพอดี */
         body {
             margin: 0;
             padding: 0;
             width: 100vw;
             height: 100vh;
-            /* พื้นหลังไล่เฉดสีพาสเทลให้ดูละมุนสายตา */
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            background-color: #f7f9fc; /* พื้นหลังสีสว่างสบายตา */
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
 
-        /* สไตล์ Word Art แบบเรียบหรูดูดี */
-        .beautiful-wordart {
-            font-family: 'Poppins', sans-serif;
-            font-size: 6rem;
-            font-weight: 700;
-            font-style: italic; /* เอียงนิดๆ ให้ดูมีลูกเล่น */
+        /* กล่องข้อความสไตล์ Word Art น่ารักนุ่มนวล */
+        .cute-wordart {
+            font-size: 5.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             
-            /* ใช้เทคนิคไล่เฉดสีเข้าไปในตัวอักษร (Gradient Text) */
-            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* ใช้เฉดสีหวานๆ สไตล์พาสเทล */
+            color: #ff6b8b; 
             
-            /* ใส่เงาด้านหลังแบบ Soft Shadow ให้ตัวอักษรดูลอยเด่นขึ้นมา */
-            filter: drop-shadow(4px 6px 10px rgba(255, 117, 140, 0.3));
-            
-            /* ใส่แอนิเมชันขยับขึ้นลงนุ่มๆ เหมือนลอยอยู่ในน้ำ (Floating Effect) */
-            animation: floatAnimation 3s ease-in-out infinite alternate;
+            /* สร้างมิติหนาๆ สไตล์ Word Art ยุคคลาสสิกด้วยเงา (ไม่ต้องโหลดฟอนต์นอก) */
+            text-shadow: 
+                2px 2px 0px #ffffff,
+                4px 4px 0px #ffb6c1,
+                6px 6px 0px #ffe4e1,
+                8px 8px 15px rgba(0, 0, 0, 0.1);
+
+            /* ใส่เอฟเฟกต์ลอย ดุ๊กดิ๊กเบาๆ เพิ่มความน่ารัก */
+            animation: gentleFloat 4s ease-in-out infinite alternate;
         }
 
-        /* เอฟเฟกต์ลอยละล่องแบบนุ่มนวล */
-        @keyframes floatAnimation {
+        /* แอนิเมชันลอยขึ้นลงแบบนุ่มนวล ไม่เด้งจนพัง */
+        @keyframes gentleFloat {
             0% {
-                transform: translateY(0px);
+                transform: translateY(0px) rotate(-1deg);
             }
             100% {
-                transform: translateY(-15px); /* ลอยขึ้นบนเล็กน้อย */
+                transform: translateY(-12px) rotate(1deg);
             }
         }
 
-        /* รองรับการแสดงผลบนหน้าจอมือถือให้ขนาดเล็กลงอัตโนมัติ */
+        /* ปรับขนาดอัติโนมัติเมื่อดูในมือถือ */
         @media (max-width: 768px) {
-            .beautiful-wordart {
-                font-size: 3.5rem;
+            .cute-wordart {
+                font-size: 3rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ข้อความ Word Art สวยๆ -->
-    <div class="beautiful-wordart">Hello World</div>
+    <div class="cute-wordart">HELLO WORLD</div>
 
 </body>
 </html>
