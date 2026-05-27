@@ -16,7 +16,9 @@
 
         body {
             font-family: 'Noto Sans Thai', 'Montserrat', sans-serif;
-            background: radial-gradient(circle, #1a1c2e 0%, #0d0e17 100%);
+            /* เปลี่ยนพื้นหลังเป็นสีดำสนิทเพื่อรองรับ Three.js Dotted Background */
+            background-color: #000000; 
+            color: #ffffff;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,31 +27,43 @@
             position: relative;
         }
 
-        /* ตกแต่งพื้นหลังให้ดูมีมิติ สบายตาขึ้น */
-        body::before {
-            content: '';
+        /* Container สำหรับถือ Canvas ของ Three.js */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; /* อยู่หลังกล่องข้อความ */
+            pointer-events: none;
+        }
+
+        /* แสง Glow สีขาวนุ่มๆ ด้านบน */
+        .glow-overlay {
+            pointer-events: none;
             position: absolute;
-            width: 150%;
-            height: 150%;
-            background: linear-gradient(45deg, rgba(0,0,0,0) 40%, rgba(229, 193, 88, 0.03) 50%, rgba(0,0,0,0) 60%);
-            animation: shine 12s infinite linear;
+            -top-10: -40px;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.04), transparent 45%);
+            filter: blur(40px);
+            z-index: 2;
         }
 
-        @keyframes shine {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* กล่อง Login */
+        /* กล่อง Login (ยกระดับ z-index ขึ้นมาเพื่อให้อยู่เหนือพื้นหลัง 3D) */
         .login-container {
             position: relative;
-            background: rgba(18, 20, 32, 0.9);
+            background: rgba(18, 20, 32, 0.85); /* เพิ่มความโปร่งแสงเล็กน้อยให้เห็นมิติด้านหลัง */
+            backdrop-filter: blur(8px); /* เพิ่มเอฟเฟกต์กระจกฝ้าให้ตัดกับจุดสีขาว */
             padding: 45px 40px;
             border-radius: 6px;
             width: 100%;
             max-width: 450px;
-            border: 1px solid rgba(229, 193, 88, 0.15);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(229, 193, 88, 0.02);
+            border: 1px solid rgba(229, 193, 88, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(229, 193, 88, 0.02);
             text-align: center;
             z-index: 10;
             clip-path: polygon(0 0, 94% 0, 100% 6%, 100% 100%, 6% 100%, 0 94%);
@@ -66,7 +80,7 @@
             background: linear-gradient(90deg, #cda250, #e5c158, #cda250);
         }
 
-        /* หัวข้อหลัก SCHOOL SYSTEM (ปรับปรุงใหม่ตามบรีฟ) */
+        /* หัวข้อหลัก SCHOOL SYSTEM */
         .logo-wrapper {
             margin-bottom: 8px;
         }
@@ -79,11 +93,10 @@
             line-height: 1.2;
             text-transform: uppercase;
             color: #ffffff;
-            /* ใช้การไล่เฉดสีอ่อนๆ และซ้อนเงาแบบนุ่มนวลให้อ่านง่ายแต่เท่ */
             text-shadow: 0 0 15px rgba(225, 225, 225, 0.1), 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* ปรับเฉพาะคำว่า SYSTEM ให้เป็นสีทองพรีเมียม เพื่อแยกคำให้สบายสายตามากขึ้น */
+        /* ปรับเฉพาะคำว่า SYSTEM ให้เป็นสีทองพรีเมียม */
         .logo span {
             color: #e5c158;
             text-shadow: 0 0 20px rgba(229, 193, 88, 0.25), 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -128,7 +141,7 @@
             font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
         }
 
-        /* เอฟเฟกต์ตอนคลิกช่องกรอก (เปลี่ยนจากเหลืองแป๋นเป็นสีทองนุ่มๆ) */
+        /* เอฟเฟกต์ตอนคลิกช่องกรอก */
         .input-group input:focus {
             border-color: #e5c158;
             box-shadow: 0 0 12px rgba(229, 193, 88, 0.15);
@@ -164,7 +177,7 @@
             transform: scale(0.985);
         }
 
-        /* ข้อความแจ้งเตือนหลอกๆ */
+        /* ข้อความแจ้งเตือน */
         .fake-notice {
             margin-top: 30px;
             font-size: 0.8rem;
@@ -199,6 +212,9 @@
 </head>
 <body>
 
+    <div id="canvas-container"></div>
+    <div class="glow-overlay"></div>
+
     <div class="login-container">
         <div class="logo-wrapper">
             <div class="logo">School <span>System</span></div>
@@ -225,13 +241,109 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <script>
+        // --- ส่วนควบคุมระบบหลังบ้านของกราฟิกจุด 3D ---
+        const container = document.getElementById('canvas-container');
+        let scene, camera, renderer, geometry, material, points;
+        let animationId;
+        let count = 0;
+
+        const SEPARATION = 150;
+        const AMOUNTX = 40;
+        const AMOUNTY = 60;
+
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            
+            // ตั้งค่าหมอกสีดำเพื่อให้จุดค่อยๆ จมหายไปในความมืด
+            scene.fog = new THREE.Fog(0x000000, 2000, 10000);
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+            // ปรับระดับมุมกล้องเล็กน้อยให้รับเข้ากับกล่อง Login ได้สวยงามขึ้น
+            camera.position.set(0, 400, 1300);
+
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(scene.fog.color, 1); 
+
+            container.appendChild(renderer.domElement);
+
+            const positions = [];
+            const colors = [];
+            geometry = new THREE.BufferGeometry();
+
+            for (let ix = 0; ix < AMOUNTX; ix++) {
+                for (let iy = 0; iy < AMOUNTY; iy++) {
+                    const x = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
+                    const y = 0; 
+                    const z = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
+
+                    positions.push(x, y, z);
+                    colors.push(1.0, 1.0, 1.0); // จุดสีขาวบริสุทธิ์
+                }
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            material = new THREE.PointsMaterial({
+                size: 7, 
+                vertexColors: true,
+                transparent: true,
+                opacity: 1.0, 
+                sizeAttenuation: true,
+            });
+
+            points = new THREE.Points(geometry, material);
+            scene.add(points);
+
+            animate();
+        }
+
+        // ตัวขับเคลื่อนอนิเมชั่นคลื่นระลอกน้ำ
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+
+            const positionAttribute = geometry.attributes.position;
+            const positions = positionAttribute.array;
+
+            let i = 0;
+            for (let ix = 0; ix < AMOUNTX; ix++) {
+                for (let iy = 0; iy < AMOUNTY; iy++) {
+                    const index = i * 3;
+
+                    // คำนวณความสูงต่ำแบบระลอกคลื่นคู่ (Sin Wave)
+                    positions[index + 1] =
+                        Math.sin((ix + count) * 0.3) * 50 +
+                        Math.sin((iy + count) * 0.5) * 50;
+
+                    i++;
+                }
+            }
+
+            positionAttribute.needsUpdate = true;
+            renderer.render(scene, camera);
+            count += 0.08; // ความเร็วของคลื่น (ปรับลดลงเล็กน้อยเพื่อให้ดูนุ่มนวลสบายตาขึ้นขณะกรอกข้อมูล)
+        }
+
+        // รองรับระบบย่อขยายหน้าจออัตโนมัติ
+        window.addEventListener('resize', () => {
+            if (!camera || !renderer) return;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // เริ่มทำงานกราฟิก
+        initThreeJS();
+
+        // --- ส่วนจำลองระบบ Login ---
         function handleFakeLogin(event) {
             event.preventDefault(); 
-            
             const username = document.getElementById('username').value;
-            
-            // แสดง Alert ตอบรับที่ดูเข้ากับระบบมากขึ้น
             alert(`[ระบบจำลอง] ชื่อผู้ใช้/รหัสผ่านของคุณ ${username} ผิดนะ!\n\nโปรดติดต่อผู้ดูแลระบบ`);
         }
     </script>
